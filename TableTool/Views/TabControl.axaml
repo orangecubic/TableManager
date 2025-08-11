@@ -1,0 +1,47 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             xmlns:vm="clr-namespace:TableTool.ViewModels"
+             xmlns:views="clr-namespace:TableTool.Views"
+			 x:Class="TableTool.Views.TabControl"
+			 x:DataType="vm:TabControlModel">
+
+	<Design.DataContext>
+		<!-- This only sets the DataContext for the previewer in an IDE,
+         to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
+		<vm:TabControlModel />
+	</Design.DataContext>
+
+    <Border Margin="3" Background="Transparent" BorderBrush="Navy" BorderThickness="3" CornerRadius="7">
+        <ItemsControl ItemsSource="{Binding Tabs}">
+		    <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Horizontal" />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Border VerticalAlignment="Top" Background="WhiteSmoke" Margin="4" CornerRadius="3" Padding="4" >
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                            <TextBlock FontSize="17" Text="{Binding Item.Name}" Margin="0,0, 4, 0"/>
+                            <Button Content="╳"
+                                    Margin="7,0"
+                                    Padding="0"
+                                    Width="20"
+                                    Height="20"
+                                    FontSize="15"
+                                    VerticalContentAlignment="Center"
+                                    VerticalAlignment="Center"
+									HorizontalAlignment="Center"
+                                    Command="{Binding $parent[views:TabControl].((vm:TabControlModel)DataContext).TabCloseEventCommand}"
+                                    CommandParameter="{Binding}" />
+                        </StackPanel>
+                    </Border>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+    </Border>
+
+</UserControl>

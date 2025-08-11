@@ -1,0 +1,91 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:TableTool.ViewModels"
+             xmlns:views="clr-namespace:TableTool.Views"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="TableTool.Views.SideMenu"
+             x:DataType="vm:SideMenuModel"
+             x:Name="SideMenuControl">
+    <Design.DataContext>
+        <!-- This only sets the DataContext for the previewer in an IDE,
+         to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
+        <vm:SideMenuModel />
+    </Design.DataContext>
+
+	<!-- 사이드바 -->
+	<Grid RowDefinitions="Auto,Auto,*" Background="#1E1E2F">
+		<Border Height="100" Background="#2E2E3E" VerticalAlignment="Top">
+			<Button Width="70" Height="50"
+					Background="Transparent"
+					BorderBrush="Transparent"
+					HorizontalAlignment="Center"
+					VerticalAlignment="Center"
+					Padding="0"
+                    Click="OnPathButtonClick">
+				<Path Stroke="Black"
+					  Fill="Gray"
+					  StrokeThickness="1"
+					  Width="50"
+					  Height="40"
+					  Stretch="Uniform"
+					  Data="M3,4 L9,4 L10,6 L21,6 C21.552,6 22,6.448 22,7 L22,18 C22,18.552 21.552,19 21,19 L3,19 C2.448,19 2,18.552 2,18 L2,5 C2,4.448 2.448,4 3,4 Z" />
+			</Button>
+		</Border>
+        <StackPanel Grid.Row="1">
+            <TextBlock Text="{Binding TableDirectory, Mode=TwoWay}" Margin="5,20,0,5" Foreground="White" FontWeight="Bold"/>
+            <Border Background="#2E2E3E"
+                    CornerRadius="5"
+                    Height="32"
+                    Margin="2, 5"
+                    Padding="8">
+
+                <DockPanel>
+                    <!-- 돋보기 아이콘 -->
+                    <Path Data="M15.5,14h-0.8l-0.3-0.3c1-1.2,1.6-2.7,1.6-4.3
+                    c0-3.9-3.1-7-7-7S2,5.5,2,9.5s3.1,7,7,7
+                    c1.6,0,3.1-0.6,4.3-1.6l0.3,0.3v0.8l5,5
+                    L20.5,19L15.5,14z M9,14
+                    c-2.5,0-4.5-2-4.5-4.5S6.5,5,9,5
+                    s4.5,2,4.5,4.5S11.5,14,9,14z"
+                          Fill="Gray"
+                          Width="16"
+                          Height="16"
+                          Margin="0,0,6,0"
+                          VerticalAlignment="Center"
+                          DockPanel.Dock="Left"/>
+
+                    <!-- 검색 입력 텍스트박스 -->
+                    <TextBox Background="Transparent"
+                             BorderThickness="0"
+                             Foreground="White"
+                             Watermark="Search..."
+                             VerticalContentAlignment="Center"/>
+                </DockPanel>
+            </Border>
+        </StackPanel>
+
+        <ScrollViewer Grid.Row="2" Margin="0,0,20,0" HorizontalScrollBarVisibility="Auto"
+                      VerticalScrollBarVisibility="Auto">
+                <ItemsControl Margin="10" ItemsSource="{Binding TableItemList}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Button 
+                                Margin="0,0,0,10"
+                                HorizontalAlignment="Stretch"
+                                Command="{Binding $parent[views:SideMenu].((vm:SideMenuModel)DataContext).FileSelectedCommand}"
+                                CommandParameter="{Binding}">
+                                <StackPanel Orientation="Horizontal" Spacing="8">
+                                    <Path Margin="10,0, 10, 0" Width="16" Height="16"
+                                          Fill="LightGreen"
+                                          Data="M3,1 H13 A1,1 0 0 1 14,2 V14 A1,1 0 0 1 13,15 H3 A1,1 0 0 1 2,14 V2 A1,1 0 0 1 3,1 Z M4,3 H10 V5 H4 Z M4,6 H10 V8 H4 Z M4,9 H10 V11 H4 Z" />
+                                    <TextBlock Text="{Binding Name}" Foreground="White" FontSize="20" />
+                                </StackPanel>
+                            </Button>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+		</ScrollViewer>
+	</Grid>
+</UserControl>

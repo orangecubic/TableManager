@@ -1,0 +1,31 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:TableTool.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="TableTool.Views.ProgressBar"
+             x:DataType="vm:ProgressBarModel">
+
+    <!-- 진행 중 오버레이 -->
+    <Border Background="#80000000"
+            IsVisible="{Binding IsProgress}"
+            ZIndex="999"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch">
+        <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
+            <StackPanel HorizontalAlignment="Center" Spacing="10">
+                <ProgressBar Minimum="0"
+                             Maximum="{Binding TotalTasks}"
+                             Value="{Binding CompletedTasks}"
+                             Width="300"
+                             Height="20" />
+
+                <TextBlock Text="{Binding ProgressText}"
+                           Foreground="White"
+                           HorizontalAlignment="Center"/>
+            </StackPanel>
+        </Grid>
+    </Border>
+
+</UserControl>

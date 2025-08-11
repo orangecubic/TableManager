@@ -1,0 +1,55 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="clr-namespace:TableTool.ViewModels"
+        xmlns:views="clr-namespace:TableTool.Views"
+        xmlns:tableTool="clr-namespace:TableTool"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+		ExtendClientAreaTitleBarHeightHint="32"
+		ExtendClientAreaChromeHints="PreferSystemChrome"
+		ExtendClientAreaToDecorationsHint="False"
+        x:Class="TableTool.MainWindow"
+		x:DataType="vm:MainViewModel"
+        Title="Dashboard"
+        Width="1200"
+        Height="800">
+
+    <Design.DataContext>
+        <!-- This only sets the DataContext for the previewer in an IDE,
+         to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
+        <vm:MainViewModel />
+    </Design.DataContext>
+
+    <Grid>
+        <Grid>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="Auto" />
+				<!-- 사이드바 -->
+				<ColumnDefinition Width="*"/>
+				<!-- 메인 콘텐츠 -->
+			</Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+			<views:SideMenu DataContext="{Binding SideMenu}"/>
+
+			<Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" MinHeight="150" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <views:TabControl DataContext="{Binding TabControl}"/>
+
+                <StackPanel Orientation="Horizontal" Margin="10,10,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Grid.Row="1">
+                    <Button Content="Generate Selected"/>
+                    <Button Margin="15,0,0,0" Content="Generate All" />
+                </StackPanel>
+            </Grid>
+        </Grid>
+
+        <views:ProgressBar HorizontalAlignment="Stretch" VerticalAlignment="Stretch" DataContext="{Binding ProgressBarModel}" />
+    </Grid>
+</Window>
